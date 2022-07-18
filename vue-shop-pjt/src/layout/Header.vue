@@ -19,7 +19,7 @@
             <router-link class="nav-link" to="/detail">제품상세페이지</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/sales">제품등록</router-link>
+            <router-link class="nav-link" to="/sales">제품등록페이지</router-link>
           </li>
           <li v-if="user.email === undefined">
             <button class="btn btn-danger" type="button" @click="kakaoLogin">로그인</button>
@@ -78,7 +78,7 @@ export default {
       });
     },
     async login(params) {
-      const data = await this.$api('/user/signup', params);
+      const data = await this.$post('/user/signup', params);
       params.iuser = data.result;
       this.$store.commit('user', params);
     },

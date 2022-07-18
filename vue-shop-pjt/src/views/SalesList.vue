@@ -1,8 +1,12 @@
 <template>
+  <div>
+    <h1>SalesList</h1>
+    <router-link class="nav-link" to="/create">제품등록</router-link>
+  </div>
   <main class="mt-3">
     <div class="container">
       <div class="float-end mb-1">
-        <button type="button" class="btn btn-dark" @click="goToInsert">제품등록</button>
+        <!-- <button type="button" class="btn btn-dark" @click="goToInsert">제품등록</button> -->
       </div>
       <table class="table table-bordered">
         <thead>
@@ -15,7 +19,7 @@
             <th></th>
           </tr>
         </thead>
-        <tbody>
+        <!-- <tbody>
           <tr :key="i" v-for="(product, i) in productList"></tr>
           <td>
             <img v-if="product.path != null" :src="`/download/${product.id}/${product.path}`"
@@ -30,7 +34,7 @@
             <button type="button" class="btn btn-warning me-1" @click="goToUpdate(product.id);">수정</button>
             <button type="button" class="btn btn-danger me-1" @click="deleteProduct(product.id);">삭제</button>
           </td>
-        </tbody>
+        </tbody> -->
       </table>
     </div>
   </main>
