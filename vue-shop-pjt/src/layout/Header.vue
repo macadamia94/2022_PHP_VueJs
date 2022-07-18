@@ -83,7 +83,12 @@ export default {
       this.$store.commit('user', params);
     },
     kakaoLogout() {
-
+      window.Kakao.Auth.logout(async res => {
+        console.log(res);
+        this.$store.commit('user', {});
+        this.$router.push({ path: '/' }); // router 주소 이동 (option)
+        await this.$api('/user/logout');
+      })
     }
   }
 }
