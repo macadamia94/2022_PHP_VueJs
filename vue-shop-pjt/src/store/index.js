@@ -8,7 +8,7 @@ export default createStore({
     };
   },
   mutations: {
-    setIuser: (state, data) => {
+    user: (state, data) => {
       state.user = data;
     },
   },
