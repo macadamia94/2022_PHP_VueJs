@@ -24,12 +24,15 @@ export default {
         success: res => {
           const acc = res.kakao_account;
           const params = {
+            social_type: 1,
             email: acc.email,
             nm: acc.profile.nickname,
             profile_img: acc.profile.profile_image_url,
             thumb_img: acc.profile.thumbnail_image_url
           }
           console.log(params);
+          const iuser = this.$api('/user/signup', params);
+          console.log('iuser : ' + iuser); 
 
           alert('로그인 성공!')
         },
