@@ -9,9 +9,9 @@
 
 <script>
 export default {
-  data() {
-    return {
-      iuser: this.$store.state.iuser,
+  computed: {
+    iuser() {
+      return this.$store.state.iuser;
     }
   },
   methods: {
