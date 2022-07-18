@@ -2,12 +2,12 @@ import axios from 'axios';
 
 export default {
   methods: {
-    async $api(url, data) {
+    async $api(url, param) { // param → data
       return (
         await axios({
           method: 'post',
           url,
-          data,
+          data: param, // data: param → data
         }).catch(e => {
           console.error(e);
         })
