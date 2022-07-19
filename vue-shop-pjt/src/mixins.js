@@ -15,6 +15,7 @@ export default {
       ).data;
     },
     async $get(url, param) {
+      // url: 문자열, param: 객체
       return (
         await axios
           .get(url, {
