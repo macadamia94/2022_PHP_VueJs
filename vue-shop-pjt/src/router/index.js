@@ -53,6 +53,7 @@ const routes = [
     path: '/image_insert',
     name: 'ImageInsert',
     component: ImageInsert,
+    beforeEnter: requireAuth(),
   },
 ];
 

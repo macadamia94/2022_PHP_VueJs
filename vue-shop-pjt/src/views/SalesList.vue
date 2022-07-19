@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <h1>SalesList</h1>
-    <router-link class="nav-link" to="/create">제품등록</router-link>
-  </div>
   <main class="mt-3">
     <div class="container">
       <div class="float-end mb-1">
-        <!-- <button type="button" class="btn btn-dark" @click="goToInsert">제품등록</button> -->
+        <router-link class="nav-link" to="/create">
+          <button type="button" class="btn btn-dark">제품등록</button>
+        </router-link>
       </div>
       <table class="table table-bordered">
         <thead>
@@ -15,26 +13,30 @@
             <th>제품명</th>
             <th>제품가격</th>
             <th>배송비</th>
-            <th>추가배송비</th>
+            <th>추가 배송비</th>
             <th></th>
           </tr>
         </thead>
-        <!-- <tbody>
-          <tr :key="i" v-for="(product, i) in productList"></tr>
-          <td>
-            <img v-if="product.path != null" :src="`/download/${product.id}/${product.path}`"
-              style="height:50px;width:auto;" />
-          </td>
-          <td>{{ product.product_name }}</td>
-          <td>{{ product.product_price }}</td>
-          <td>{{ product.delivery_price }}</td>
-          <td>{{ product.add_delivery_price }}</td>
-          <td>
-            <button type="button" class="btn btn-info me-1" @click="goToImageInsert(product.id);">사진등록</button>
-            <button type="button" class="btn btn-warning me-1" @click="goToUpdate(product.id);">수정</button>
-            <button type="button" class="btn btn-danger me-1" @click="deleteProduct(product.id);">삭제</button>
-          </td>
-        </tbody> -->
+        <tbody>
+          <tr :key="product.id" v-for="product in productList">
+            <td>
+              <!-- <img src="`/download/${product.id}/${product.path}`" style="height: 50px; width: auto;"> -->
+            </td>
+            <td>{{ product.product_name }}</td>
+            <td>{{ product.product_price }}</td>
+            <td>{{ product.delivery_price }}</td>
+            <td>{{ product.add_delivery_price }}</td>
+            <td>
+              <router-link class="nav-link" :to="{path: '/image_insert', query: {product_id: product.id}}">
+                  <button type="button" class="btn btn-info me-1">사진등록</button>
+                </router-link>
+                <router-link class="nav-link" to="{path: '/update', query: {product_id: product.id}}">
+                  <button type="button" class="btn btn-warning me-1">수정</button>
+                </router-link>
+                <button type="button" class="btn btn-danger" @click="delProduct">삭제</button>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </main>
@@ -43,7 +45,35 @@
 
 <script>
 export default {
+  data() {
+    return {
+      productList: []
+    }
+  },
+  created() {
+    this.getProductList();
+  },
+  methods: {
+    async getProductList() {
+      this.productList = await this.$get("/api/productList2", {});
+      console.log(this.productList);
+    },
 
+    delProduct() {
+      this.$swal.fire({
+        title: '정말 삭제 하시겠습니까?',
+        showCancelButton: true,
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소'
+      }).then(async result => {
+        if (result.isConfirmed) {
+          await this.$get("/api/prodectDel",);
+
+          this.$swal.fire('삭제되었습니다.', '', 'success');
+        }
+      })
+    }
+  }
 }
 </script>
 

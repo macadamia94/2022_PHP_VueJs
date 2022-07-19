@@ -4,7 +4,7 @@
       <h2 class="text-center">제품 사진 등록</h2>
       <div class="mb-3 row">
         <label class="col-md-3 col-form-label">제품ID</label>
-        <div class="col-md-9"></div>
+        <div class="col-md-9">{{ productId }}</div>
       </div>
       <div class="mb-3 row">
         <label class="col-md-3 col-form-label">제품명</label>
@@ -85,7 +85,17 @@
 
 <script>
 export default {
-
+  data() {
+    return {
+      productId: 0,
+      productName: '',
+      productDetail: {},
+      productImage: []
+    }
+  },
+  created() {
+    this.productId = this.$route.query.product_id;
+  }
 }
 </script>
 
