@@ -1,0 +1,26 @@
+categoryObj  // 객체
+
+categoryObj = {
+  '전자제품': {}, // 키값 = 전자제품 (문자열) → 그 안에 또 다른 객체
+  '생필품': {}
+}
+
+v-for="(value, name) of categoryObj"
+
+v-for 값을 두 개를 줄 경우
+(value, name) 
+정수값 문자열값
+
+v-for 에 of 를 사용하면 열거형으로 바꿔줌
+
+categoryObj = { 
+  '전자제품': {
+    '컴퓨터': [],
+    '가전제품': []
+  },
+    '생필품': {
+      '주방용품': []
+    }
+}
+
+

@@ -49,7 +49,7 @@
               <select class="form-select" v-model="cate1" @change="changeCate1">
                 <option :key="name" v-for="(value, name) of categoryObj">{{ name }}</option>
               </select> <!-- v-for : name만 적으면 value가 넘어감  -->
-            </div>
+            </div><!-- of : 객체가 넘어오기 때문에 -->
 
             <div class="col-auto" v-if="cate1 !== ''">
               <select class="form-select" v-model="cate2" @change="changeCate2">
