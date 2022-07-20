@@ -73,7 +73,7 @@ export default {
         cancelButtonText: '취소'
       }).then(async result => {
         if (result.isConfirmed) {
-          await this.$get("/api/prodectDel",);
+          await this.$get("/api/productDel",);
 
           this.$swal.fire('삭제되었습니다.', '', 'success');
         }

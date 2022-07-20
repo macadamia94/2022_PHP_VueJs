@@ -114,6 +114,13 @@ export default {
     //   );
     //   console.log(productDetail);
     // }
+    async uploadFile(files, type) {
+      console.log(files);
+      const image = await this.$base64(files[0]);
+      const formData = { image };
+      const { error } = await this.$post(`/api/upload/${this.productDetail.id}/${type}`, formData);
+      console.log(error);
+    }
   }
 }
 </script>
