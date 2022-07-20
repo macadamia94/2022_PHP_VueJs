@@ -28,11 +28,12 @@ export default {
     },
     $base64(file) {
       return new Promise(resolve => {
-        const fr = new FileReader();
+        const fr = new FileReader(); // FileReader 객체화
         fr.onload = e => {
-          resolve(e.target.result);
+          // onload : 로딩이 끝나면 {} 실행
+          resolve(e.target.result); // 로딩이 끝난 문자열 (이미지를 문자열로 쪼갬)
         };
-        fr.readAsDataURL(file);
+        fr.readAsDataURL(file); //  파일을 읽어들임
       });
     },
   },
