@@ -17,16 +17,17 @@
         <div class="col-md-9">
           <div class="row">
 
-            <!-- 이미지 리스트 가져오는 로직 후 구현 -->
+            <!-- 섬네일 이미지 리스트 가져오는 로직 후 구현 -->
             <div class="col-lg-3 col-md-4 col-sm-2" :key="item.id"
               v-for="item in productImage.filter( c => c.type === 1)">
               <div class="position-relative">
                 <img :src="`/static/img/${item.product_id}/${item.type}/${item.path}`" class="img-fluid">
-                <div class="position-absolute top-0 end-0" style="cursor: pointer" @click="deleteImage(item.id)">X</div>
+                <div class="position-absolute top-0 end-0" style="cursor: pointer"
+                  @click="deleteImage(item.id, item.type, item.path)">X</div>
                 <!-- deleteImage : 주소값 연결(바인딩), deleteImage(item.id) : 주소값 호출 (파라미터를 보낼 수 있음) -->
               </div>
             </div>
-
+            <!-- <h1>{{ productDetail.id }}</h1> -->
           </div>
           <input type="file" class="form-control" accept="image/png,image/jpeg"
             @change="uploadFile($event.target.files, 1)" />
@@ -51,7 +52,8 @@
               <!-- filter(function(c) { return c.type === 2 }) -->
               <div class="position-relative">
                 <img :src="`/static/img/${item.product_id}/${item.type}/${item.path}`" class="img-fluid">
-                <div class="position-absolute top-0 end-0" style="cursor: pointer" @click="deleteImage(item.id)">X</div>
+                <div class="position-absolute top-0 end-0" style="cursor: pointer"
+                  @click="deleteImage(item.id, item.type, item.path)">X</div>
               </div>
             </div>
 
@@ -88,7 +90,8 @@
               v-for="item in productImage.filter( c => c.type === 3)">
               <div class="position-relative">
                 <img :src="`/static/img/${item.product_id}/${item.type}/${item.path}`" class="img-fluid">
-                <div class="position-absolute top-0 end-0" style="cursor: pointer" @click="deleteImage(item.id)">X</div>
+                <div class="position-absolute top-0 end-0" style="cursor: pointer"
+                  @click="deleteImage(item.id, item.type, item.path)">X</div>
               </div>
             </div>
 
@@ -114,6 +117,9 @@ export default {
       productImage: []
     }
   },
+  updated() {
+    this.getproductImage();
+  },
   created() {
     this.productId = this.$route.query.product_id;
     this.productDetail = this.$store.state.sallerSelectedProduct;
@@ -128,7 +134,6 @@ export default {
     // }
     async getproductImage() {
       this.productImage = await this.$get(`/api/productImageList/${this.productDetail.id}`);
-
     }, 
     async uploadFile(files, type) {
       console.log(files);
@@ -139,8 +144,20 @@ export default {
       console.log(error);
     },
 
-    deleteImage(id) {
-      console.log(id);
+    async deleteImage(id, type, path) {
+      this.$swal.fire({
+        title: '정말 삭제 하시겠습니까?',
+        showCancelButton: true,
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소'
+      }).then(async result => {
+        if (result.isConfirmed) {
+          await this.$delete(`/api/productImageDelete/${id}/${this.productDetail.id}/${type}/${path}`);
+          this.$swal.fire('삭제되었습니다.', '', 'success');
+        }
+      });
+      // const result = await this.$delete(`/api/productImageDelete/${id}/${this.productDetail.id}/${type}/${path}`);
+      // console.log(result);
     }
   }
 }

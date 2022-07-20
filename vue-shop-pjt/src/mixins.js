@@ -8,7 +8,7 @@ export default {
         await axios({
           method: 'post',
           url,
-          data: param, // data: param → data
+          data: param, // data: param → data  (getJson 사용)
         }).catch(e => {
           console.error(e);
         })
@@ -19,6 +19,18 @@ export default {
       return (
         await axios
           .get(url, {
+            params: param,  // 쿼리스트링으로 날아감
+          })
+          .catch(e => {
+            console.error(e);
+          })
+      ).data;
+    },
+    async $delete(url, param) {
+      // url: 문자열, param: 객체
+      return (
+        await axios
+          .delete(url, {
             params: param,
           })
           .catch(e => {
