@@ -1,11 +1,10 @@
 <template>
   <main class="mt-3">
-    <h1>ProductList</h1>
     <div class="container">
       <div class="row mb-2">
         <div class="col-12">
-          <select name="" id="" class="form-select">
-            <option selected></option>
+          <select class="form-select">
+            <option selected>---</option>
             <option value="1">노트북</option>
             <option value="2">모니터</option>
             <option value="3">마우스/키보드</option>

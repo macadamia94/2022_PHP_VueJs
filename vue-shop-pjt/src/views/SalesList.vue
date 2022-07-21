@@ -35,7 +35,7 @@
               <router-link class="nav-link" to="{path: '/update', query: {product_id: product.id}}">
                 <button type="button" class="btn btn-warning me-1">수정</button>
               </router-link>
-              <button type="button" class="btn btn-danger" @click="delProduct">삭제</button>
+              <button type="button" class="btn btn-danger" @click="deleteProduct(product.id)">삭제</button>
             </td>
           </tr>
         </tbody>
@@ -69,20 +69,22 @@ export default {
       this.$router.push({ path: '/image_insert' });
     },
 
-    delProduct() {
-      this.$swal.fire({
-        title: '정말 삭제 하시겠습니까?',
-        showCancelButton: true,
-        confirmButtonText: '삭제',
-        cancelButtonText: '취소'
-      }).then(async result => {
-        if (result.isConfirmed) {
-          await this.$get("/api/productDel",);
-
-          this.$swal.fire('삭제되었습니다.', '', 'success');
-        }
-      })
-    }
+    async deleteProduct(id) {
+      this.$swal
+        .fire({
+          title: '정말 삭제하시겠습니까?',
+          showCancelButton: true,
+          confirmButtonText: '삭제',
+          cancelButtonText: '취소',
+        })
+        .then(async (result) => {
+          if (result.isConfirmed) {
+            const result = await this.$post(`/api/deleteProduct/${id}`);
+            console.log(result);
+            this.$swal.fire('삭제되었습니다.', '', 'success');
+          }
+        });
+    },
   }
 }
 </script>
