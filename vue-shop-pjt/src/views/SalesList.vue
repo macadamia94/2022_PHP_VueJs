@@ -18,9 +18,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr :key="product.id" v-for="(product, idx) in productList">
+          <tr v-for="(product, idx) in productList" :key="product.id">
             <td>
-              <!-- <img src="`/download/${product.id}/${product.path}`" style="height: 50px; width: auto;"> -->
+              <img v-if="product.path !== null" :src="`/static/img/${product.id}/1/${product.path}`"
+                style="height: 50px; width: auto;">
             </td>
             <td>{{ product.product_name }}</td>
             <td>{{ product.product_price }}</td>
@@ -54,10 +55,13 @@ export default {
   created() {
     this.getProductList();
   },
+  updated() {
+    this.getProductList();
+  },
   methods: {
     async getProductList() {
       this.productList = await this.$get("/api/productList2", {});
-      console.log(this.productList);
+      // console.log(this.productList);
     },
 
     goToImageInsert(idx) {
