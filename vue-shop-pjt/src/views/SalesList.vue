@@ -35,7 +35,7 @@
               <router-link class="nav-link" to="{path: '/update', query: {product_id: product.id}}">
                 <button type="button" class="btn btn-warning me-1">수정</button>
               </router-link>
-              <button type="button" class="btn btn-danger" @click="deleteProduct(product.id)">삭제</button>
+              <button type="button" class="btn btn-danger" @click="deleteProduct(product.id, idx)">삭제</button>
             </td>
           </tr>
         </tbody>
@@ -84,6 +84,11 @@ export default {
             this.$swal.fire('삭제되었습니다.', '', 'success');
           }
         });
+      // console.log(productId);
+      // const res = await this.$delete(`/api/deleteProduct/${id}`, {});
+      // if (res.result === 1) {
+      //   this.productList.splice(idx, 1);
+      // }
     },
   }
 }
