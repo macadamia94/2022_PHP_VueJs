@@ -151,6 +151,9 @@ export default {
     changeCate2() {
       this.product.category_id = '';
     },
+    goToList() {
+      this.$router.push({ path: '/sales' });
+    },
     productInsert() {
       if (this.product.product_name === '') {
         this.$refs.product_name.focus();
